@@ -3,4 +3,14 @@
   <groupId>br.com.vrtech</groupId>
   <artifactId>transferencia-de-dados</artifactId>
   <version>1.0.0</version>
+  
+	<dependencies>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>5.7.0</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>  
+  
 </project>
