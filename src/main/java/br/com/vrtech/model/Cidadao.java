@@ -1,13 +1,13 @@
-package br.com.vrtech;
+package br.com.vrtech.model;
 
 public class Cidadao {
 
 	private String nome;
-	private String idade;
+	private int idade;
 	private String municipio;
 	private String estado; 
 	
-	public Cidadao(String nome, String idade, String municipio, String estado) {
+	public Cidadao(String nome, int idade, String municipio, String estado) {
 		this.nome = nome;
 		this.idade = idade;
 		this.municipio = municipio;

@@ -1,16 +1,18 @@
 package br.com.vrtech;
 
-import java.io.FileInputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import br.com.vrtech.model.Cidadao;
+
 public class LeitorDeArquivo {
 
-	public List<Cidadao> importaCidadaos(String arquivo){
+	public List<Cidadao> importaCidadaos(File arquivo){
 		List<Cidadao> cidadaos = new ArrayList<>();
-		try (Scanner scanner = new Scanner(new FileInputStream(arquivo), "windows-1252")) {
+		try (Scanner scanner = new Scanner(arquivo, "windows-1252")) {
 			if (scanner.hasNext()) {
 				scanner.nextLine(); //ignorar o cabecalho
 				
@@ -29,7 +31,7 @@ public class LeitorDeArquivo {
 						indiceDivisor = line.substring(indiceInicio).indexOf("|");
 					}
 					dados.add(line.substring(indiceFim + 1).trim());
-					Cidadao cidadao = new Cidadao(dados.get(0), dados.get(1), dados.get(2), dados.get(3));
+					Cidadao cidadao = new Cidadao(dados.get(0), Integer.valueOf(dados.get(1)), dados.get(2), dados.get(3));
 					cidadaos.add(cidadao);
 				}
 			}	
