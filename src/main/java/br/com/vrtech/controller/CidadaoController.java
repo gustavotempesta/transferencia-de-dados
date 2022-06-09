@@ -24,4 +24,8 @@ public class CidadaoController {
 		return cidadaoDao.buscarSomenteOsDaRegiaoSudeste();
 	}
 	
+	public List<Cidadao> buscarSomenteOsMaioresDe30(){
+		return cidadaoDao.buscarSomenteOsMaioresDe30();
+	}
+	
 }

@@ -22,6 +22,7 @@ public class Main {
 		cidadaos.forEach(cidadao -> cidadaoController.gravar(cidadao));
 		
 		System.out.println(cidadaoController.buscarSomenteOsDaRegiaoSudeste());
+		System.out.println(cidadaoController.buscarSomenteOsMaioresDe30());
 		
 	}
 	

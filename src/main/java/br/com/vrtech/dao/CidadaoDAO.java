@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import br.com.vrtech.model.Cidadao;
 
@@ -85,15 +86,14 @@ public class CidadaoDAO {
 			throw new RuntimeException(ex);
 		}
 	}
-
-	public List<Cidadao> buscarSomenteOsDaRegiaoSudeste() {
+	
+	public List<Cidadao> buscarTodos(){
 		try {
 			List<Cidadao> cidadaos = new ArrayList<>();
 			String query = "SELECT P.ID, P.NOME, P.IDADE, L.MUNICIPIO, L.ESTADO "
 					+ "FROM PESSOAS P "
 					+ "INNER JOIN LOGRADOUROS L ON P.COD_LOGRADOURO = L.COD "
-					+ "WHERE L.ESTADO IN ('MG', 'SP', 'RJ', 'ES') "
-					+ "ORDER BY L.ESTADO";
+					+ "ORDER BY P.ID";
 			
 			try(PreparedStatement pstm = connection.prepareStatement(query)){
 				pstm.execute();
@@ -104,22 +104,47 @@ public class CidadaoDAO {
 						cidadaos.add(cidadao);
 					}
 				}
-			}
+			}			
 			return cidadaos;
+		}catch(SQLException ex) {
+			throw new RuntimeException(ex);
+		}
+	}
+
+	public List<Cidadao> buscarSomenteOsDaRegiaoSudeste() {
+		try {
+			List<Cidadao> cidadaos = new ArrayList<>();
+			String query = "SELECT P.ID, P.NOME, P.IDADE, L.MUNICIPIO, L.ESTADO "
+					+ "FROM PESSOAS P "
+					+ "INNER JOIN LOGRADOUROS L ON P.COD_LOGRADOURO = L.COD "
+					+ "WHERE L.ESTADO IN ('MG', 'SP', 'RJ', 'ES') "				
+					+ "ORDER BY P.ID";
+			
+			try(PreparedStatement pstm = connection.prepareStatement(query)){
+				pstm.execute();
+				
+				try(ResultSet rst = pstm.getResultSet()){
+					while (rst.next()) {
+						Cidadao cidadao = new Cidadao(rst.getInt(1), rst.getString(2), rst.getInt(3), rst.getString(4), rst.getString(5));
+						cidadaos.add(cidadao);
+					}
+				}
+			}			
+			return cidadaos;
+			
 		} catch (SQLException ex) {
 			throw new RuntimeException(ex);
 		}
 				
 	}
 
-	public List<Cidadao> buscarSomenteOsMaioresDe30() {
-
-//		Select p.id, p.nome, p.idade, l.municipio, l.estado
-//		from pessoas p
-//		inner join logradouros l ON p.COD_LOGRADOURO = l.COD
-//		where p.idade > 30;
-
-		return null;
+	public List<Cidadao> buscarSomenteOsMaioresDe30() {	
+		List<Cidadao> cidadaos = new ArrayList<>(buscarTodos());
+		
+		return cidadaos
+			.stream()
+			.filter(cidadao -> cidadao.getIdade() >= 30)
+			.collect(Collectors.toList());
 	}
 
 }

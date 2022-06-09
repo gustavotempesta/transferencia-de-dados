@@ -50,7 +50,7 @@ public class Cidadao {
 	@Override
 	public String toString() {
 		return String.format(
-				"[nome=%s, idade=%s, municipio=%s, estado=%s]", 
+				"Cidadao [nome=%s, idade=%s, municipio=%s, estado=%s]\n", 
 				this.nome, this.idade, this.municipio, this.estado);
 	}
 	
