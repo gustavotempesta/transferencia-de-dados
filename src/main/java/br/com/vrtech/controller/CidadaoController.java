@@ -1,6 +1,7 @@
 package br.com.vrtech.controller;
 
 import java.sql.Connection;
+import java.util.List;
 
 import br.com.vrtech.dao.CidadaoDAO;
 import br.com.vrtech.factory.ConnectionFactory;
@@ -17,6 +18,10 @@ public class CidadaoController {
 	
 	public void gravar(Cidadao cidadao) {
 		cidadaoDao.gravar(cidadao);
+	}
+	
+	public List<Cidadao> buscarSomenteOsDaRegiaoSudeste(){
+		return cidadaoDao.buscarSomenteOsDaRegiaoSudeste();
 	}
 	
 }
