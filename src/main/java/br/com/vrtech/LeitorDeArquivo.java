@@ -2,6 +2,7 @@ package br.com.vrtech;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -10,7 +11,7 @@ import br.com.vrtech.model.Cidadao;
 
 public class LeitorDeArquivo {
 
-	public List<Cidadao> importaCidadaos(File arquivo){
+	public List<Cidadao> importaCidadaos(File arquivo) throws IOException{
 		List<Cidadao> cidadaos = new ArrayList<>();
 		try (Scanner scanner = new Scanner(arquivo, "windows-1252")) {
 			if (scanner.hasNext()) {
@@ -36,7 +37,7 @@ public class LeitorDeArquivo {
 				}
 			}	
 		} catch (FileNotFoundException ex) {
-			System.out.println("Exceção: O arquivo não existe.\n" + ex.getMessage());
+			throw new IOException("Exceção: O arquivo não existe.");
 		}
 		return cidadaos;
 	}
